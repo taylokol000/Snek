@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Board extends JPanel {
 
     Game game;
-    ArrayList<Snake> snake=new ArrayList<Snake>();
+    ArrayList<Body> body=new ArrayList<Body>();
+    Snake snake;
+    Food food;
 
     public Board(Game game){
         this.game=game;
@@ -14,11 +16,16 @@ public class Board extends JPanel {
     }
 
     public void setup(){
-
+        snake=new Snake(this);
+        food=new Food(this);
+        food.setX((int)(Math.random()*((getWidth()-food.getWIDTH())-0+1)+0));
+        food.setY((int)(Math.random()*((getWidth()-food.getWIDTH())-0+1)+0));
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        snake.paint(g);
+        food.paint(g);
     }
 
 }
