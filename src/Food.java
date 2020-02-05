@@ -4,10 +4,21 @@ public class Food {
 
     int x,y;
     final int WIDTH=10,HEIGHT=10;
+    Board board;
 
     public Food(Board board){
         x=board.getWidth()/3;
         y=board.getWidth()/3;
+        this.board=board;
+    }
+
+    public Rectangle getBounds(){
+        return new Rectangle(x,y,HEIGHT,WIDTH);
+    }
+
+    public void randomSpawn(){
+        setX((int)(Math.random()*((board.getWidth()-getWIDTH())+1)+0));
+        setY((int)(Math.random()*((board.getWidth()-getWIDTH())+1)+0));
     }
 
     public void paint(Graphics g){

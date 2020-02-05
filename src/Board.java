@@ -11,6 +11,7 @@ public class Board extends JPanel implements ActionListener {
     Snake snake;
     Food food;
     Timer timer;
+    int score=0;
 
     public Board(Game game){
         this.game=game;
@@ -23,12 +24,21 @@ public class Board extends JPanel implements ActionListener {
     public void setup(){
         snake=new Snake(this);
         food=new Food(this);
-        food.setX((int)(Math.random()*((getWidth()-food.getWIDTH())-0+1)+0));
-        food.setY((int)(Math.random()*((getWidth()-food.getWIDTH())-0+1)+0));
+        food.randomSpawn();
+    }
+
+    public void checkCollisions(){
+        if(snake.getBounds().intersects(food.getBounds())){
+            food.randomSpawn();
+            score++;
+            body.add(new Body(snake,getBodies()));
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        checkCollisions();
+
         if(game.isUpPressed()){
             snake.moveUp();
         }
@@ -69,5 +79,7 @@ public class Board extends JPanel implements ActionListener {
         food.paint(g);
     }
 
-
+    public int getBodies(){
+        return body.size();
+    }
 }

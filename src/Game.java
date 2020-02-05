@@ -30,33 +30,42 @@ public class Game extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_UP){
-            upPressed=true;
+            if(downPressed==false) {
+                upPressed = true;
+                leftPressed = false;
+                rightPressed = false;
+                downPressed = false;
+            }
         }
         if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            leftPressed=true;
+            if(rightPressed==false) {
+                leftPressed = true;
+                downPressed = false;
+                rightPressed = false;
+                upPressed = false;
+            }
         }
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            rightPressed=true;
+            if(leftPressed==false) {
+                rightPressed = true;
+                leftPressed = false;
+                downPressed = false;
+                upPressed = false;
+            }
         }
         if(e.getKeyCode()==KeyEvent.VK_DOWN){
-            downPressed=true;
+            if(upPressed==false) {
+                downPressed = true;
+                leftPressed = false;
+                rightPressed = false;
+                upPressed = false;
+            }
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_UP){
-            upPressed=false;
-        }
-        if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            leftPressed=false;
-        }
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            rightPressed=false;
-        }
-        if(e.getKeyCode()==KeyEvent.VK_DOWN){
-            downPressed=false;
-        }
+
     }
 
     public boolean isUpPressed() {

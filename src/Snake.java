@@ -44,6 +44,10 @@ public class Snake {
         this.y = y;
     }
 
+    public Rectangle getBounds(){
+        return new Rectangle(x,y,WIDTH,HEIGHT);
+    }
+
     public void paint(Graphics g){
         g.setColor(new Color(46,139,87));
         g.fillRect(x,y,WIDTH,HEIGHT);
