@@ -44,58 +44,81 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        checkCollisions();
+        if(game.isEnterPressed()){
+            GameStates.setMENU()=false;
+        }
 
-        for(int i=body.size()-1;i>=0;i--){
-            if(i>0) {
-                body.get(i).moveX(body.get(i -1).getX());
-                body.get(i).moveY(body.get(i - 1).getY());
-            }else{
-                body.get(i).moveX(snake.getX());
-                body.get(i).moveY(snake.getY());
+        if(GameStates.isPLAY()) {
+            checkCollisions();
+
+            for (int i = body.size() - 1; i >= 0; i--) {
+                if (i > 0) {
+                    body.get(i).moveX(body.get(i - 1).getX());
+                    body.get(i).moveY(body.get(i - 1).getY());
+                } else {
+                    body.get(i).moveX(snake.getX());
+                    body.get(i).moveY(snake.getY());
+                }
             }
-        }
 
-        if(game.isUpPressed()){
-            snake.moveUp();
-        }
+            if (game.isUpPressed()) {
+                snake.moveUp();
+            }
 
-        if(snake.getX()<=0){
-            snake.setX(getWidth());
-        }
+            if (snake.getX() <= 0) {
+                snake.setX(getWidth());
+            }
 
-        if(snake.getX()>=getWidth()+1){
-            snake.setX(0);
-        }
+            if (snake.getX() >= getWidth() + 1) {
+                snake.setX(0);
+            }
 
-        if(snake.getY()<=0){
-            snake.setY(getHeight());
-        }
+            if (snake.getY() <= 0) {
+                snake.setY(getHeight());
+            }
 
-        if(snake.getY()>=getHeight()+1){
-            snake.setY(0);
-        }
+            if (snake.getY() >= getHeight() + 1) {
+                snake.setY(0);
+            }
 
-        if(game.isDownPressed()){
-            snake.moveDown();
-        }
+            if (game.isDownPressed()) {
+                snake.moveDown();
+            }
 
-        if(game.isRightPressed()){
-            snake.moveRight();
-        }
+            if (game.isRightPressed()) {
+                snake.moveRight();
+            }
 
-        if(game.isLeftPressed()){
-            snake.moveLeft();
+            if (game.isLeftPressed()) {
+                snake.moveLeft();
+            }
         }
         repaint();
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        snake.paint(g);
-        food.paint(g);
-        for(Body body: body){
-               body.paint(g);
+
+        if(GameStates.isMENU()){
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Arial",Font.PLAIN,72));
+            printSimpleString("Snek",getWidth(),0,100,g);
+            g.setFont(new Font("Arial",Font.PLAIN,36));
+            printSimpleString("Press enter to start!",getWidth(),0,300,g);
         }
+
+        if(GameStates.isPLAY()) {
+            snake.paint(g);
+            food.paint(g);
+            for (Body body : body) {
+                body.paint(g);
+            }
+        }
+    }
+
+    private void printSimpleString(String s,int width,int XPos,int YPos,Graphics g){
+        int stringLen=(int)g.getFontMetrics().getStringBounds(s,g).getWidth();
+        int start=width/2-stringLen/2;
+        g.drawString(s,start+XPos,YPos);
     }
 }
