@@ -3,7 +3,7 @@ import java.awt.*;
 public class Food {
 
     int x,y;
-    final int WIDTH=10,HEIGHT=10;
+    final int WIDTH=15,HEIGHT=15;
     Board board;
 
     public Food(Board board){

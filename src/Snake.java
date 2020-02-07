@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Snake {
     int x,y;
-    final int WIDTH=10,HEIGHT=10;
-    double speed=5,dx,dy;
+    final int WIDTH=15,HEIGHT=15;
+    double speed=15,dx,dy;
 
     public Snake(Board board){
         x=board.getWidth()/2;
@@ -51,5 +51,9 @@ public class Snake {
     public void paint(Graphics g){
         g.setColor(new Color(46,139,87));
         g.fillRect(x,y,WIDTH,HEIGHT);
+    }
+
+    public void setSpeed(double speed){
+        this.speed+=speed;
     }
 }
