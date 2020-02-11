@@ -71,7 +71,9 @@ public class Game extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if(e.getKeyCode()==KeyEvent.VK_ENTER){
+            enterPressed=false;
+        }
     }
 
     public boolean isUpPressed() {
@@ -91,10 +93,14 @@ public class Game extends JFrame implements KeyListener {
     }
 
     public boolean isEnterPressed() {
-        return downPressed;
+        return enterPressed;
     }
 
     public boolean isEscPressed() {
-        return downPressed;
+        return escPressed;
+    }
+
+    public void setRightPressed(boolean i) {
+        rightPressed=i;
     }
 }

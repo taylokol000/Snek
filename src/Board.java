@@ -34,10 +34,13 @@ public class Board extends JPanel implements ActionListener {
             score++;
             body.add(new Body(snake));
             snake.setSpeed(.1);
+            score++;
         }
         for(int i=0;i<body.size();i++){
             if(snake.getBounds().intersects(body.get(i).getBounds())){
                 System.out.println("Death");
+                GameStates.setDEATH(true);
+                GameStates.setPLAY(false);
             }
         }
     }
@@ -45,7 +48,17 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(game.isEnterPressed()){
-            GameStates.setMENU()=false;
+            GameStates.setMENU(false);
+            GameStates.setDEATH(false);
+            GameStates.setPLAY(true);
+            game.setRightPressed(true);
+            score=0;
+        }
+
+        if(GameStates.isDEATH()){
+            for(int i=1;i<body.size();i++){
+                body.remove(i);
+            }
         }
 
         if(GameStates.isPLAY()) {
@@ -113,6 +126,15 @@ public class Board extends JPanel implements ActionListener {
             for (Body body : body) {
                 body.paint(g);
             }
+        }
+
+        if(GameStates.isDEATH()){
+            setBackground(Color.BLACK);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial",Font.PLAIN,36));
+            printSimpleString("You died with a score of "+score+"!",getWidth(),0,100,g);
+            g.setFont(new Font("Arial",Font.PLAIN,36));
+            printSimpleString("Press enter to play again!",getWidth(),0,300,g);
         }
     }
 
